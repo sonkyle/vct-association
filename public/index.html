@@ -13,36 +13,48 @@
     <section id="navbar" class="">
       <nav></nav>
     </section>
-    <section id="header" class="">
-      <h1>Which Pro Player Do You Think Of?</h1>
-    </section>
-    <section id="image-input" class="flex items-start gap-6 p-6">
-    <img src="img/astra.png" alt="Agent Image" class="w-32 h-32 object-cover" />
-    <div id="input-section" class="flex flex-col gap-3 justify-center">
-      <h2 class="text-2xl font-semibold">Which Pro Player Do You Think Of?</h2>
-      <input type="text" placeholder="Enter text here" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full max-w-md"/>
-      <div>
-        <button>Back</button>
-        <button>Next</button>
-      </div>
+    <div id="main-part">
+      <section id="header" class="">
+        <h1>Which Pro Player Do You Think Of?</h1>
+      </section>
+      <section id="image-input" class="flex items-start gap-6 p-6">
+        <img
+          src="img/astra.png"
+          alt="Agent Image"
+          class="w-32 h-32 object-cover"
+        />
+        <div id="input-section" class="flex flex-col gap-3 justify-center">
+          <h2 class="text-2xl font-semibold">
+            Which Pro Player Do You Think Of?
+          </h2>
+          <input
+            type="text"
+            placeholder="Enter text here"
+            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full max-w-md"
+          />
+          <div>
+            <button>Back</button>
+            <button>Next</button>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-  <script>
-      window.addEventListener('DOMContentLoaded', (event) => {
+    <script>
+      window.addEventListener("DOMContentLoaded", (event) => {
         VANTA.FOG({
           el: "body",
           mouseControls: true,
           touchControls: true,
           gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
+          minHeight: 200.0,
+          minWidth: 200.0,
           highlightColor: 0xff0000,
           midtoneColor: 0x0,
           lowlightColor: 0x0,
           baseColor: 0x0,
-          blurFactor: 0.70,
-          speed: 1.00 // Optional: control animation speed
-        })
+          blurFactor: 0.7,
+          speed: 1.0,
+        });
       });
     </script>
   </body>
