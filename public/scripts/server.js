@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('share-btn').addEventListener('click', function() {
     const textToCopy = imageNames.map((agent, index) => 
-        `${agent.charAt(0).toUpperCase() + agent.slice(1)} - ${userResponses[index] || 'Skipped'}`
+        `${'Play it yourself at: https://sonkyle.github.io/vctassociation/\n' + agent.charAt(0).toUpperCase() + agent.slice(1)} - ${userResponses[index] || 'Skipped'}`
     ).join('\n');
     
     navigator.clipboard.writeText(textToCopy)
