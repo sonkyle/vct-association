@@ -18,6 +18,10 @@
   "homepage": "https://github.com/sonkyle/vctassociation#readme",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.1",
     "tailwindcss": "^4.1.18"
   }
 }
