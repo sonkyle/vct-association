@@ -55,13 +55,21 @@ input.addEventListener('keypress', function(event) {
     }
 });
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
     if (submitBtn) {
         submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            userResponses[agentIndex] = input.value.trim();
+            const answer = input.value.trim();
+            userResponses[agentIndex] = answer;
+            fetch('/api/answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sessionId: getSessionId(),
+                    imageIndex: agentIndex,
+                    answer: answer
+                })
+            }).catch(err => console.error('Failed to send answer:', err));
             getNextAgentImage();
             input.value = '';
             input.focus();
@@ -94,3 +102,13 @@ document.getElementById('share-btn').addEventListener('click', function() {
       .then(() => {alert('Copied to clipboard!');})
       .catch(err => {console.error('Failed to copy:', err);});
 });
+
+// Generate or retrieve a session ID for the user
+function getSessionId() {
+    let sessionId = localStorage.getItem('sessionId');
+    if (!sessionId) {
+        sessionId = Math.random().toString(36).substr(2, 9) + Date.now();
+        localStorage.setItem('sessionId', sessionId);
+    }
+    return sessionId;
+}
