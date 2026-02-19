@@ -3,7 +3,7 @@ const cors = require('cors');
 const Database = require('better-sqlite3');
 const db = new Database('database.db');
 const sessionId = require('crypto').randomUUID();
-
+module.exports = app;
 
 const app = express();
 app.use(cors());

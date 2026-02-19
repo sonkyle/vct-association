@@ -11,6 +11,27 @@ const imageNames = [
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
 ];
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDZjKucr7Dy6549t3jDy7XgmrEpqw5A6Yo",
+    authDomain: "vct-association.firebaseapp.com",
+    projectId: "vct-association",
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function saveAnswer(sessionId, imageIndex, answer) {
+    await addDoc(collection(db, "responses"), {
+        sessionId,
+        agent: imageNames[imageIndex],
+        imageIndex,
+        answer,
+        timestamp: new Date()
+    });
+}
+
 function getNextAgentImage() {
     agentIndex++;
     if (agentIndex > imageNames.length -1){
@@ -57,19 +78,11 @@ input.addEventListener('keypress', function(event) {
 
 document.addEventListener('DOMContentLoaded', () => {
     if (submitBtn) {
-        submitBtn.addEventListener('click', (e) => {
+        submitBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             const answer = input.value.trim();
             userResponses[agentIndex] = answer;
-            fetch('/api/answer', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    sessionId: getSessionId(),
-                    imageIndex: agentIndex,
-                    answer: answer
-                })
-            }).catch(err => console.error('Failed to send answer:', err));
+            await saveAnswer(getSessionId(), agentIndex, answer);
             getNextAgentImage();
             input.value = '';
             input.focus();
