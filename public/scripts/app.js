@@ -20,6 +20,7 @@ const playerAliases = {
     'd4v4i': 'd4v41',
     'd4va1': 'd4v41',
     'som': 's0m',
+    'finesse' : 'fns',
     'jing' : 'jinggg',
     'jingg' : 'jinggg',
     'jingggg' : 'jinggg',
