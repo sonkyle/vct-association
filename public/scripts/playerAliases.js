@@ -101,4 +101,4 @@ const playerAliases = {
     'jimmy' : 'marved',
 }
 
-module.exports = playerAliases;
+export default playerAliases;
