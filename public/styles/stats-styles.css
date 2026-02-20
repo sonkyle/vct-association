@@ -1,0 +1,54 @@
+:root {
+  --accent-color: rgb(207, 148, 57);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+}
+
+#stats-main-part {
+  color: var(--accent-color);
+  width: 70%;
+  height: 100%;
+  align-items: center;
+  margin: 0 auto;
+  border: 5px solid var(--accent-color);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(2.5rem);
+}
+
+#agent-stats {
+  top: 0;
+  overflow: auto;
+  height: 775px;
+}
+
+#agent-stats ul{
+  margin: 0 0.5rem 1rem 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+#agent-stats ul li {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--accent-color);
+  border-radius: 5px;
+  padding: 0.5rem 5rem 0.5rem 0;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#agent-stats img {
+  width: 150px;
+  height: 150px;
+}
+
+.players span {
+    display:block;
+}

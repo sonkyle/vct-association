@@ -10,44 +10,7 @@ const imageNames = [
     'astra', 'breach', 'brimstone', 'chamber', 'clove', 'cypher', 'deadlock', 'fade', 'gekko', 'harbor', 'iso', 'jett', 'kayo', 'killjoy', 'neon', 'omen', 'phoenix', 
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
 ];
-const playerAliases = {
-    'forsaken': 'f0rsaken',
-    'davai': 'd4v41',
-    'dav4i': 'd4v41',
-    'd4vai': 'd4v41',
-    'dava1': 'd4v41',
-    'dav41': 'd4v41',
-    'd4v4i': 'd4v41',
-    'd4va1': 'd4v41',
-    'som': 's0m',
-    'finesse' : 'fns',
-    'jing' : 'jinggg',
-    'jingg' : 'jinggg',
-    'jingggg' : 'jinggg',
-    'narrate' : 'n4rrate',
-    'finesse' : 'fns',
-    'freeing' : 'free1ing',
-    'com' : "c0m",
-    'vookashu' : 'vo0kashu',
-    'v0okashu' : 'vo0kashu',
-    'v00kashu' : 'vo0kashu',
-    'shrimp' : 'shr1mp',
-    'larok' : 'lar0k',
-    'fangeer' : 'f4ngeer',
-    'vic' : 'v1c',
-    'kira' : 'k1ra',
-    'alorante' : 'al0rante',
-    'sugarzero' : 'sugarz3ro',
-    'texture' : 't3xture',
-    'krystal' : 'kr1stal',
-    'kristal' : 'kr1stal',
-    'purpo' : 'purp0',
-    'luoking' : 'luok1ng',
-    'aui' : 'au1',
-    'rose' : 'rosé',
-    'flexin' : 'flex1n',
-    'demur' : 'd3mur',
-}
+const playerAliases = require('./playerAliases');
 
 function normalize(answer){
     const lower = answer.trim().toLowerCase();
