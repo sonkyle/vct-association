@@ -16,7 +16,7 @@ function normalize(answer){
     return playerAliases[lower] || lower;
 }
 
-import playerAliases from "./playerAliases";
+import playerAliases from "./playerAliases.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
