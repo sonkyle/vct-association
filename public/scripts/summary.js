@@ -13,9 +13,9 @@ paragraphs.forEach((p, index) => {
 
 shareBtn.addEventListener('click', function() {
     const userResponses = JSON.parse(localStorage.getItem('userResponses'));
-    const textToCopy = 'Play it yourself at: https://vctassociation.vercel.app/\n' + imageNames.map((agent, index) => 
+    const textToCopy = imageNames.map((agent, index) => 
         `${agent.charAt(0).toUpperCase() + agent.slice(1)} - ${userResponses[index] || 'Skipped'}`
-    ).join('\n');
+    ).join('\n') + '\n\nPlay it yourself at: https://vctassociation.vercel.app/';
     navigator.clipboard.writeText(textToCopy)
       .then(() => {alert('Copied to clipboard!');})
       .catch(err => {console.error('Failed to copy:', err);});
