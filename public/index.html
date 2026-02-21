@@ -17,10 +17,13 @@
     <div id="main-part">
       <section id="header" class="text-5xl font-bold">
         <h1>Which Pro Player Do You Think Of?</h1>
-        <button id="share-btn" class="inline-flex h-12 items-center justify-center rounded-md bg-[var(--accent-color)] px-6 font-medium text-neutral-50 
-          transition duration-75 active:scale-[0.80]" disabled>
-            Share
+        <div id='share-box'>
+          <button id="share-btn" class="inline-flex h-12 items-center justify-center rounded-md bg-[var(--accent-color)] px-5 font-medium text-neutral-50 mx-2
+            transition duration-75 active:scale-[0.80]" disabled>
+              Share
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="translate-y-0.5 size-6 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
           </button>
+        </div>
       </section>
 
       <section id="image-input">
@@ -173,6 +176,16 @@
           </div>
         </div>
       </section>
+    </div>
+
+    <div id="side-btn-div" class="fixed top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 group" style="left: calc(85% + 5rem);">
+      <button id="side-btn" style="background-color: var(--accent-color);" 
+        class="w-20 h-20 rounded-md transition duration-75 active:scale-[0.80] flex items-center justify-center p-2">
+        <img src="img/graph.png" alt="stats" class="w-full h-full object-contain" />
+      </button>
+      <span class="text-sm text-white opacity-0 group-hover:opacity-100 transition duration-150 whitespace-nowrap">
+        View Community Stats
+      </span>
     </div>
 
     <script>

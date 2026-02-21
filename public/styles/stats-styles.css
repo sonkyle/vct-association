@@ -49,6 +49,10 @@ body {
   height: 150px;
 }
 
+#agent-stats::-webkit-scrollbar {
+  display: none;
+}
+
 .players span {
     display:block;
 }

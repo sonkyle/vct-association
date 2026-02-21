@@ -41,7 +41,7 @@ async function saveAnswer(sessionId, imageIndex, answer) {
 function getNextAgentImage() {
     agentIndex++;
     if (agentIndex > imageNames.length -1){
-        document.querySelector('#header h1').textContent = 'Summary of Answers';
+        document.querySelector('#header h1').textContent = 'Summary';
         submitBtn.style.display = 'none';
         backBtn.style.display = 'none';
         skipBtn.style.display = 'none';
@@ -50,7 +50,8 @@ function getNextAgentImage() {
         document.getElementById('image-input').style.display = 'none';
         document.getElementById('summary').style.display = 'block';
         document.getElementById('share-btn').disabled = false;
-        document.getElementById('share-btn').style.display = 'block';
+        document.getElementById('share-btn').style.display = 'flex';
+        document.getElementById('side-btn-div').style.display = 'flex';
         paragraphs.forEach((p, index) => {
             p.textContent = userResponses[index] || 'Skipped';
         });
