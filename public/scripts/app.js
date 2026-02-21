@@ -5,7 +5,6 @@ const input = document.getElementById('input-field');
 const submitBtn = document.getElementById('submit-btn');
 const backBtn = document.getElementById('back-btn');
 const skipBtn = document.getElementById('skip-btn');
-const paragraphs = document.querySelectorAll('#summary ul li p');
 const imageNames = [
     'astra', 'breach', 'brimstone', 'chamber', 'clove', 'cypher', 'deadlock', 'fade', 'gekko', 'harbor', 'iso', 'jett', 'kayo', 'killjoy', 'neon', 'omen', 'phoenix', 
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
@@ -41,20 +40,9 @@ async function saveAnswer(sessionId, imageIndex, answer) {
 function getNextAgentImage() {
     agentIndex++;
     if (agentIndex > imageNames.length -1){
-        document.querySelector('#header h1').textContent = 'Summary';
-        submitBtn.style.display = 'none';
-        backBtn.style.display = 'none';
-        skipBtn.style.display = 'none';
-        document.getElementById('image-container').style.display = 'none';
-        input.style.display = 'none';
-        document.getElementById('image-input').style.display = 'none';
-        document.getElementById('summary').style.display = 'block';
-        document.getElementById('share-btn').disabled = false;
-        document.getElementById('share-btn').style.display = 'flex';
-        document.getElementById('side-btn-div').style.display = 'flex';
-        paragraphs.forEach((p, index) => {
-            p.textContent = userResponses[index] || 'Skipped';
-        });
+        localStorage.setItem('userResponses', JSON.stringify(userResponses));
+        window.location.href = 'summary.html';
+        return;
     }
     if (img) {
         img.src = `img/splash/${imageNames[agentIndex]}.png`;
@@ -111,16 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
             input.focus();
         }); 
     }
-});
-
-document.getElementById('share-btn').addEventListener('click', function() {
-    const textToCopy = imageNames.map((agent, index) => 
-        `${'Play it yourself at: https://sonkyle.github.io/vctassociation/\n' + agent.charAt(0).toUpperCase() + agent.slice(1)} - ${userResponses[index] || 'Skipped'}`
-    ).join('\n');
-    
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {alert('Copied to clipboard!');})
-      .catch(err => {console.error('Failed to copy:', err);});
 });
 
 // Generate or retrieve a session ID for the user
