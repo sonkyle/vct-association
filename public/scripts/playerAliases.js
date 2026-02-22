@@ -99,6 +99,7 @@ const playerAliases = {
     'paint' : 'pa1nt',
     'austin' : 'crashies',
     'jimmy' : 'marved',
+    'xeppa' : 'xeppaa' 
 }
 
 export default playerAliases;
