@@ -22,6 +22,8 @@ const playerAliases = {
     'jingg' : 'jinggg',
     'jingggg' : 'jinggg',
     'narrate' : 'n4rrate',
+    'narr4te' : 'n4rrate',
+    'n4rr4te' : 'n4rrate',
     'freeing' : 'free1ing',
     'com' : "c0m",
     'vookashu' : 'vo0kashu',
@@ -99,7 +101,10 @@ const playerAliases = {
     'paint' : 'pa1nt',
     'austin' : 'crashies',
     'jimmy' : 'marved',
-    'xeppa' : 'xeppaa' 
+    'xeppa' : 'xeppaa',
+    'skyler' : 'relyks',
+    'cutler' : 'reltuc',
+    'flexninja' : 'flexinja'
 }
 
 export default playerAliases;
