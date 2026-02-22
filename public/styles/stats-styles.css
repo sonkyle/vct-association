@@ -67,5 +67,7 @@ body {
 }
 
 .players span {
-    display:block;
+  display:block;
+  margin-left: 1rem;  
 }
+
