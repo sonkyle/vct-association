@@ -1,6 +1,6 @@
 //todo list
 //1. fix casing of usernames (nats --> nAts) 
-
+let isSaving = false;
 let agentIndex = 0;
 let userResponses = [];
 const img = document.getElementById('agent-image');
@@ -40,10 +40,18 @@ async function saveAnswers(sessionId, userResponses) {
 async function getNextAgentImage() {
     agentIndex++;
     if (agentIndex > imageNames.length -1){
-        await saveAnswers(getSessionId(), userResponses);
-        submitBtn.disabled = true;
-        localStorage.setItem('userResponses', JSON.stringify(userResponses));
-        window.location.href = 'summary.html';
+        if(isSaving) {
+            return;
+        }
+        isSaving = true;
+        try {
+            await saveAnswers(getSessionId(), userResponses);
+            localStorage.setItem('userResponses', JSON.stringify(userResponses));
+            window.location.href = 'summary.html';
+        } catch (err) {
+            isSaving = false;
+            console.error('Failed to save answers:', err);
+        }
         return;
     }
     if (img) {
