@@ -1,17 +1,20 @@
 import { supabase } from "./supabase.js";
 const sideBtn = document.getElementById('side-btn');
 
-const { data, error } = await supabase
-    .from('responses')
-    .select('image_index, answer');
+const { data } = await supabase.rpc('get_top5_by_agent');
 
 if (!error) {
     for (let i = 0; i < 28; i++) {
-        const agentAnswers = data
-            .filter(row => row.image_index === i)
-            .map(row => row.answer);
-
-        const result = top5(agentAnswers, agentAnswers.length);
+        const agentRows = data.filter(row => row.image_index === i);
+        const total = agentRows.reduce((sum, row) => sum + Number(row.count), 0);
+        
+        const result = agentRows
+            .slice(0, 5)
+            .map(row => ({
+                value: row.answer,
+                count: Number(row.count),
+                percent: (Number(row.count) / total * 100).toFixed(1)
+            }));
 
         const li = document.querySelectorAll('#agent-stats li')[i];
         const spans = li.querySelectorAll('.players span');
@@ -19,18 +22,6 @@ if (!error) {
             span.textContent = result[j] ? `${result[j].value} - ${result[j].count} (${result[j].percent}%)` : "N/A";
         });
     }
-}
-
-function top5(arr, length){
-    const counts = {};
-    for (const item of arr) {
-        counts[item] = (counts[item] || 0) + 1;
-    }
-    const top5 = Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
-        .map(entry => ({ value: entry[0], count: entry[1], percent: (entry[1] / length * 100).toFixed(1) }))
-    return top5;
 }
 
 sideBtn.addEventListener('click', function() {
