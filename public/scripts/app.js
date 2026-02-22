@@ -1,7 +1,7 @@
 //todo list
 //1. maybe make it so that instead of just raw resetting the input when you submit, you save it to some array, and then if the user clicks back, the input field
 //   is populated with the answer they had previously put
-//3. fix casing of usernames (nats --> nAts) 
+//2. fix casing of usernames (nats --> nAts) 
 
 let agentIndex = 0;
 let userResponses = [];
@@ -57,6 +57,9 @@ function getPreviousAgentImage() {
     agentIndex--;
     if (agentIndex < 0){
         agentIndex = 0;
+    }
+    if(userResponses[agentIndex]){
+        input.textContent = userResponses[agentIndex];
     }
     if (img) {
         img.src = `img/splash/${imageNames[agentIndex]}.png`;
