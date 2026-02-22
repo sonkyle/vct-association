@@ -25,6 +25,3 @@ sideBtn.addEventListener('click', function() {
     window.location.href = 'statistics.html';
     return;
 });
-
-console.log('shareBtn:', shareBtn);
-console.log('userResponses:', userResponses);

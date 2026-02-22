@@ -1,18 +1,24 @@
-import { db } from "./firebase.js";
-import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
+import { supabase } from "./supabase.js";
 const sideBtn = document.getElementById('side-btn');
 
-for (let i = 0; i<28; i++){
-    const getAgentQuery = await getDocs(query(collection(db, "responses"), where("imageIndex", "==", i)));
-    const agentSubmissions = getAgentQuery.docs.map(doc => doc.data().answer);
-    const result = top5(agentSubmissions, agentSubmissions.length);
-    
-    const li = document.querySelectorAll('#agent-stats li')[i];
-    const spans = li.querySelectorAll('.players span');
-    spans.forEach((span, j) => {
-        span.textContent = result[j] ? `${result[j].value} - ${result[j].count} (${result[j].percent}%)` : "N/A";
-    });
+const { data, error } = await supabase
+    .from('responses')
+    .select('image_index, answer');
+
+if (!error) {
+    for (let i = 0; i < 28; i++) {
+        const agentAnswers = data
+            .filter(row => row.image_index === i)
+            .map(row => row.answer);
+
+        const result = top5(agentAnswers, agentAnswers.length);
+
+        const li = document.querySelectorAll('#agent-stats li')[i];
+        const spans = li.querySelectorAll('.players span');
+        spans.forEach((span, j) => {
+            span.textContent = result[j] ? `${result[j].value} - ${result[j].count} (${result[j].percent}%)` : "N/A";
+        });
+    }
 }
 
 function top5(arr, length){

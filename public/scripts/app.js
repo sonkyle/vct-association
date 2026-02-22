@@ -1,5 +1,8 @@
 //todo list
 //1. fix casing of usernames (nats --> nAts) 
+import playerAliases from "./playerAliases.js";
+import { supabase } from "./supabase.js";
+
 let isSaving = false;
 let agentIndex = 0;
 let userResponses = [];
@@ -13,28 +16,20 @@ const imageNames = [
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
 ];
 
-function normalize(answer){
-    let lower = answer.trim().toLowerCase();
-    lower = lower.replace(/[^a-z0-9 _]/g, '');
-    return playerAliases[lower] || lower;
-}
-
-import playerAliases from "./playerAliases.js";
-import { db } from "./firebase.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
 async function saveAnswers(sessionId, userResponses) {
-    for(let i = 0; i< userResponses.length; i++){
-        if(userResponses[i]){
-            await addDoc(collection(db, "responses"), {
-                sessionId,
+    const rows = [];
+    for (let i = 0; i < userResponses.length; i++) {
+        if (userResponses[i]) {
+            rows.push({
+                session_id: sessionId,
                 agent: imageNames[i],
-                imageIndex : i,
-                answer : userResponses[i],
-                timestamp: new Date()
+                image_index: i,
+                answer: userResponses[i]
             });
         }
     }
+    const { error } = await supabase.from('responses').insert(rows);
+    if (error) throw error;
 }
 
 async function getNextAgentImage() {
@@ -72,6 +67,12 @@ function getPreviousAgentImage() {
         img.src = `img/splash/${imageNames[agentIndex]}.png`;
         img.alt = imageNames[agentIndex];
     }
+}
+
+function normalize(answer){
+    let lower = answer.trim().toLowerCase();
+    lower = lower.replace(/[^a-z0-9 _]/g, '');
+    return playerAliases[lower] || lower;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
