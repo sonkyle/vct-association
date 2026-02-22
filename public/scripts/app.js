@@ -15,7 +15,7 @@ const imageNames = [
 
 function normalize(answer){
     let lower = answer.trim().toLowerCase();
-    lower = lower.replace(/[^a-z0-9 ]/g, '');
+    lower = lower.replace(/[^a-z0-9 _]/g, '');
     return playerAliases[lower] || lower;
 }
 
