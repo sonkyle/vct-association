@@ -18,6 +18,7 @@
   "homepage": "https://github.com/sonkyle/vctassociation#readme",
   "description": "",
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "better-sqlite3": "^12.6.2",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",

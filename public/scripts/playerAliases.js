@@ -1,4 +1,5 @@
 const playerAliases = {
+    'kk' : 'zmjjkk',
     'cane' : 'canezerra',
     'cryo' : 'cryocells',
     'ilya' : 'something',
