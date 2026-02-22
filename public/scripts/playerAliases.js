@@ -60,6 +60,7 @@ const playerAliases = {
     'keznitdeus' : 'keznit',
     'goat' : 's0m',
     'kangkang' : 'zmjjkk',
+    'zmjjkk kangkang' : 'zmjjkk',
     'woot' : 'wo0t',
     'w00t' : 'wo0t',
     'w0ot' : 'wo0t',
