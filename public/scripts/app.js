@@ -53,15 +53,7 @@ function getPreviousAgentImage() {
     }
 }
 
-input.addEventListener('input', function() {
-    submitBtn.disabled = input.value.trim() === '';
-});
 
-input.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter' && input.value !== '') {
-      submitBtn.click();
-    }
-});
 
 document.addEventListener('DOMContentLoaded', () => {
     if (submitBtn) {
@@ -90,6 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
             input.value = '';
             input.focus();
         }); 
+    }
+    if(input){
+        input.addEventListener('input', function() {
+            submitBtn.disabled = input.value.trim() === '';
+        });
+
+        input.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && input.value !== '') {
+            submitBtn.click();
+            }
+        });
     }
 });
 

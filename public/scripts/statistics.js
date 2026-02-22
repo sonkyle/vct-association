@@ -1,11 +1,10 @@
+import { db } from "./firebase.js";
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
 const sideBtn = document.getElementById('side-btn');
 
-import { db } from "./firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
-
-const query = await getDocs(query(collection(db, "responses"), where("imageIndex", "==", "0")));
-const agentSubmissions = query.docs.map(doc => ({ agent: doc.agent, answer: doc.answer, imageIndex : doc.imageIndex }))
+const getAgentQuery = await getDocs(query(collection(db, "responses"), where("imageIndex", "==", "0")));
+const agentSubmissions = getAgentQuery.docs.map(doc => ({ agent: doc.data().agent, answer: doc.data().answer, imageIndex : doc.data().imageIndex }))
 console.log(agentSubmissions);
 
 sideBtn.addEventListener('click', function() {
