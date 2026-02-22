@@ -1,8 +1,6 @@
 //todo list
 //1. maybe make it so that instead of just raw resetting the input when you submit, you save it to some array, and then if the user clicks back, the input field
 //   is populated with the answer they had previously put
-//2. limit user input so that instead of just pushing to the database every time the submit button is clicked, you edit an array so that people that change
-//   their mind frequently and go back and whatnot do not flood the database with duplicate responses
 //3. fix casing of usernames (nats --> nAts) 
 
 let agentIndex = 0;
@@ -25,21 +23,26 @@ function normalize(answer){
 
 import playerAliases from "./playerAliases.js";
 import { db } from "./firebase.js";
-import { collection, addDoc} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-async function saveAnswer(sessionId, imageIndex, answer) {
-    await addDoc(collection(db, "responses"), {
-        sessionId,
-        agent: imageNames[imageIndex],
-        imageIndex,
-        answer,
-        timestamp: new Date()
-    });
+async function saveAnswers(sessionId, userResponses) {
+    for(let i = 0; i< userResponses.length; i++){
+        if(userResponses[i]){
+            await addDoc(collection(db, "responses"), {
+                sessionId,
+                agent: imageNames[i],
+                imageIndex : i,
+                answer : userResponses[i],
+                timestamp: new Date()
+            });
+        }
+    }
 }
 
-function getNextAgentImage() {
+async function getNextAgentImage() {
     agentIndex++;
     if (agentIndex > imageNames.length -1){
+        await saveAnswers(getSessionId(), userResponses);
         localStorage.setItem('userResponses', JSON.stringify(userResponses));
         window.location.href = 'summary.html';
         return;
@@ -61,15 +64,12 @@ function getPreviousAgentImage() {
     }
 }
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
     if (submitBtn) {
         submitBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             const answer = normalize(input.value);
             userResponses[agentIndex] = answer;
-            await saveAnswer(getSessionId(), agentIndex, answer);
             getNextAgentImage();
             input.value = '';
             input.focus();
@@ -104,11 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Generate or retrieve a session ID for the user
 function getSessionId() {
     let sessionId = localStorage.getItem('sessionId');
     if (!sessionId) {
-        sessionId = Math.random().toString(36).substr(2, 9) + Date.now();
+        sessionId = Math.random().toString(36) + Date.now();
         localStorage.setItem('sessionId', sessionId);
     }
     return sessionId;
