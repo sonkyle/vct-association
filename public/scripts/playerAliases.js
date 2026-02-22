@@ -1,4 +1,6 @@
 const playerAliases = {
+    'jawg' : 'jawgemo',
+    'king' : 'kingg',
     'yetujay' : 'yetujey',
     'kk' : 'zmjjkk',
     'alfayer' : 'alfajer',
