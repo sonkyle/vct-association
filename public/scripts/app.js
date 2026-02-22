@@ -40,7 +40,6 @@ async function saveAnswers(sessionId, userResponses) {
 async function getNextAgentImage() {
     agentIndex++;
     if (agentIndex > imageNames.length -1){
-        submitBtn.disabled = true;
         await saveAnswers(getSessionId(), userResponses);
         localStorage.setItem('userResponses', JSON.stringify(userResponses));
         window.location.href = 'summary.html';
