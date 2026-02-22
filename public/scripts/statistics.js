@@ -1,7 +1,7 @@
 import { supabase } from "./supabase.js";
 const sideBtn = document.getElementById('side-btn');
 
-const { data } = await supabase.rpc('get_top5_by_agent');
+const { data, error } = await supabase.rpc('get_top5_by_agent');
 
 if (!error) {
     for (let i = 0; i < 28; i++) {
