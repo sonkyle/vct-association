@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         backBtn.addEventListener('click', (e) => {
             e.preventDefault();
             getPreviousAgentImage();
-            input.value = '';
             input.focus();
         });
     }
