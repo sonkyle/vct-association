@@ -13,6 +13,7 @@ const backBtn = document.getElementById('back-btn');
 const skipBtn = document.getElementById('skip-btn');
 const helpBtn = document.getElementById('help-button');
 const helpText = document.getElementById('help-text');
+const closeHelp = document.getElementById('close-help');
 const imageNames = [
     'astra', 'breach', 'brimstone', 'chamber', 'clove', 'cypher', 'deadlock', 'fade', 'gekko', 'harbor', 'iso', 'jett', 'kayo', 'killjoy', 'neon', 'omen', 'phoenix', 
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
@@ -77,6 +78,16 @@ function normalize(answer){
     return playerAliases[lower] || lower;
 }
 
+function helpTextAppear() {
+    helpText.style.display = 'block';
+    document.body.classList.add('help-open');
+}
+
+function helpTextDisappear() {
+    helpText.style.display = 'none';
+    document.body.classList.remove('help-open');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (submitBtn) {
         submitBtn.addEventListener('click', async (e) => {
@@ -117,8 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(helpBtn){
         helpBtn.addEventListener('click', (e) => {
             e.preventDefault;
-            helpText.style.display = 'block';
+            helpTextAppear();
         });
+    }
+    if(closeHelp){
+        closeHelp.addEventListener('click', helpTextDisappear);
     }
 });
 
