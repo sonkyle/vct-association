@@ -8,6 +8,16 @@ body {
   position: relative;
 }
 
+#question-mark {
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+}
+
+#help-text {
+  display:none;
+}
+
 #main-part {
   color: var(--accent-color);
   width: 70%;

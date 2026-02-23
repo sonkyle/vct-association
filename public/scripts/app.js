@@ -1,5 +1,5 @@
 //todo list
-//1. fix casing of usernames (nats --> nAts) 
+//1. session storage
 import playerAliases from "./playerAliases.js";
 import { supabase } from "./supabase.js";
 
@@ -11,6 +11,8 @@ const input = document.getElementById('input-field');
 const submitBtn = document.getElementById('submit-btn');
 const backBtn = document.getElementById('back-btn');
 const skipBtn = document.getElementById('skip-btn');
+const helpBtn = document.getElementById('help-button');
+const helpText = document.getElementById('help-text');
 const imageNames = [
     'astra', 'breach', 'brimstone', 'chamber', 'clove', 'cypher', 'deadlock', 'fade', 'gekko', 'harbor', 'iso', 'jett', 'kayo', 'killjoy', 'neon', 'omen', 'phoenix', 
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
@@ -110,6 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.key === 'Enter' && input.value !== '') {
             submitBtn.click();
             }
+        });
+    }
+    if(helpBtn){
+        helpBtn.addEventListener('click', (e) => {
+            e.preventDefault;
+            helpText.style.display = 'block';
         });
     }
 });
