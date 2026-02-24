@@ -6,7 +6,7 @@ const { data, error } = await supabase.rpc('get_top5_by_agent');
 if (!error) {
     for (let i = 0; i < 28; i++) {
         const agentRows = data.filter(row => row.image_index === i);
-        const total = agentRows.reduce((sum, row) => sum + Number(row.count), 0);
+        const total = Number(agentRows[0]?.total) || 1;
         
         const result = agentRows
             .slice(0, 5)
