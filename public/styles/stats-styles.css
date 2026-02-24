@@ -60,6 +60,7 @@ body {
 #agent-stats img {
   width: 150px;
   height: 150px;
+  margin: 0 1rem 0 0.5rem;
 }
 
 #agent-stats::-webkit-scrollbar {
@@ -68,6 +69,5 @@ body {
 
 .players span {
   display:block;
-  margin-left: 1rem;  
 }
 
