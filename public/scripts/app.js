@@ -1,5 +1,3 @@
-//todo list
-//1. session storage
 import playerAliases from "./playerAliases.js";
 import { supabase } from "./supabase.js";
 
@@ -35,8 +33,40 @@ async function saveAnswers(sessionId, userResponses) {
     if (error) throw error;
 }
 
+function saveAnswer(index, answer) {
+    const answers = getAnswers();
+    answers[index] = answer;
+    sessionStorage.setItem('quizAnswers', JSON.stringify(answers));
+}
+
+function updateIndex(index) {
+    if (index === undefined || index === null) return;
+    sessionStorage.setItem('lastSeen', JSON.stringify(index));
+}
+
+function getAnswers() {
+    return JSON.parse(sessionStorage.getItem('quizAnswers') || '{}');
+}
+
+function getIndex() {
+    const val = sessionStorage.getItem('lastSeen');
+    return val ? JSON.parse(val) : 0;
+}
+
+function clearAnswers() {
+    sessionStorage.removeItem('quizAnswers');
+    sessionStorage.removeItem('lastSeen');
+}
+
 async function getNextAgentImage() {
     agentIndex++;
+    updateIndex(agentIndex);
+    if(userResponses[agentIndex]){
+        input.value = userResponses[agentIndex];
+    }
+    else {
+        input.value = '';
+    }
     if (agentIndex > imageNames.length -1){
         if(isSaving) {
             return;
@@ -46,6 +76,7 @@ async function getNextAgentImage() {
             await saveAnswers(getSessionId(), userResponses);
             localStorage.setItem('userResponses', JSON.stringify(userResponses));
             window.location.href = 'summary.html';
+            clearAnswers();
         } catch (err) {
             isSaving = false;
             console.error('Failed to save answers:', err);
@@ -60,11 +91,15 @@ async function getNextAgentImage() {
 
 function getPreviousAgentImage() {
     agentIndex--;
+    updateIndex(agentIndex);
     if (agentIndex < 0){
         agentIndex = 0;
     }
     if(userResponses[agentIndex]){
         input.value = userResponses[agentIndex];
+    }
+    else {
+        input.value = '';
     }
     if (img) {
         img.src = `img/splash/${imageNames[agentIndex]}.png`;
@@ -89,13 +124,23 @@ function helpTextDisappear() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const saved = getAnswers();
+    agentIndex = getIndex();
+    Object.entries(saved).forEach(([index, answer]) => {
+        userResponses[Number(index)] = answer;
+    });
+    if (userResponses[agentIndex]) {
+        input.value = userResponses[agentIndex];
+    }
+    img.src = `img/splash/${imageNames[agentIndex]}.png`;
+    img.alt = imageNames[agentIndex];
     if (submitBtn) {
         submitBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             const answer = normalize(input.value);
             userResponses[agentIndex] = answer;
+            saveAnswer(agentIndex, answer);
             getNextAgentImage();
-            input.value = '';
             input.focus();
         });
     }
@@ -110,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
         skipBtn.addEventListener('click', (e) => {
             e.preventDefault();
             getNextAgentImage();
-            input.value = '';
             input.focus();
         }); 
     }
