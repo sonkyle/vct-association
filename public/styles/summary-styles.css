@@ -39,6 +39,10 @@ body {
   height: 775px;
 }
 
+#summary {
+  scrollbar-width: none;
+}
+
 #summary::-webkit-scrollbar {
   display: none;
 }
