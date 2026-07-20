@@ -18,7 +18,7 @@ const imageNames = [
 ];
 
 function setAgentImage(name) {
-    if (!img) return;
+    if (!img || !name) return;
     img.src = `img/splash/${name}.png`;
     img.alt = name;
     // Restart the animation each time the image changes.
@@ -70,7 +70,6 @@ function clearAnswers() {
 
 async function getNextAgentImage() {
     agentIndex++;
-    updateIndex(agentIndex);
     if(userResponses[agentIndex]){
         input.value = userResponses[agentIndex];
     }
@@ -93,6 +92,7 @@ async function getNextAgentImage() {
         }
         return;
     }
+    updateIndex(agentIndex);
     setAgentImage(imageNames[agentIndex]);
 }
 
@@ -130,6 +130,11 @@ function helpTextDisappear() {
 document.addEventListener('DOMContentLoaded', () => {
     const saved = getAnswers();
     agentIndex = getIndex();
+    // Guard against a stale/out-of-range index (would load undefined.png).
+    if (agentIndex < 0 || agentIndex > imageNames.length - 1) {
+        agentIndex = 0;
+        updateIndex(agentIndex);
+    }
     Object.entries(saved).forEach(([index, answer]) => {
         userResponses[Number(index)] = answer;
     });
