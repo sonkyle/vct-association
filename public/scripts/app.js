@@ -17,6 +17,16 @@ const imageNames = [
     'raze', 'reyna', 'sage', 'skye', 'sova', 'tejo', 'veto', 'viper', 'vyse', 'waylay', 'yoru'
 ];
 
+function setAgentImage(name) {
+    if (!img) return;
+    img.src = `img/splash/${name}.png`;
+    img.alt = name;
+    // Restart the animation each time the image changes.
+    img.classList.remove('agent-animate');
+    void img.offsetWidth; // force reflow so the animation replays
+    img.classList.add('agent-animate');
+}
+
 async function saveAnswers(sessionId, userResponses) {
     const rows = [];
     for (let i = 0; i < userResponses.length; i++) {
@@ -83,10 +93,7 @@ async function getNextAgentImage() {
         }
         return;
     }
-    if (img) {
-        img.src = `img/splash/${imageNames[agentIndex]}.png`;
-        img.alt = imageNames[agentIndex];
-    }
+    setAgentImage(imageNames[agentIndex]);
 }
 
 function getPreviousAgentImage() {
@@ -101,10 +108,7 @@ function getPreviousAgentImage() {
     else {
         input.value = '';
     }
-    if (img) {
-        img.src = `img/splash/${imageNames[agentIndex]}.png`;
-        img.alt = imageNames[agentIndex];
-    }
+    setAgentImage(imageNames[agentIndex]);
 }
 
 function normalize(answer){
@@ -132,8 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userResponses[agentIndex]) {
         input.value = userResponses[agentIndex];
     }
-    img.src = `img/splash/${imageNames[agentIndex]}.png`;
-    img.alt = imageNames[agentIndex];
+    setAgentImage(imageNames[agentIndex]);
     if (submitBtn) {
         submitBtn.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -177,6 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(closeHelp){
         closeHelp.addEventListener('click', helpTextDisappear);
+    }
+    // Show the help modal automatically the first time someone visits.
+    if (!localStorage.getItem('hasVisited')) {
+        helpTextAppear();
+        localStorage.setItem('hasVisited', 'true');
     }
 });
 
